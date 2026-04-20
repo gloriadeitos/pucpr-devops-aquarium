@@ -1,27 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Footer from "../components/Footer";
+import HeroSection from "../components/sections/HeroSection";
+import DescriptionSection from "../components/sections/DescriptionSection";
+import PlantsSection from "../components/sections/PlantsSection";
+import FishSection from "../components/sections/FishSection";
+import SubstratesSection from "../components/sections/SubstratesSection";
+import DecorationsSection from "../components/sections/DecorationsSection";
+import ReferencesSection from "../components/sections/ReferencesSection";
 
 const Home = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+    useEffect(() => {
+        const root = document.documentElement;
+        const header = document.querySelector<HTMLElement>("[data-site-header='true']");
+
+        if (!header) {
+            return;
+        }
+
+        const setOffset = () => {
+            const height = header.getBoundingClientRect().height;
+            root.style.setProperty("--header-offset", `${height}px`);
+        };
+
+        setOffset();
+
+        const observer = new ResizeObserver(() => {
+            setOffset();
+        });
+
+        observer.observe(header);
+        window.addEventListener("resize", setOffset);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", setOffset);
+        };
+    }, []);
+
     return (
-        <div className="min-h-screen bg-slate-50">
-            <Header onOpenSidebar={() => setIsSidebarOpen(true)} />
+        <div className="min-h-screen bg-gradient-to-b from-[#010911] via-[#030f1d] to-[#06152a] text-[#d9e4ff]">
+            <Header
+                sidebarOpen={isSidebarOpen}
+                onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+            />
             <Sidebar
                 open={isSidebarOpen}
                 onClose={() => setIsSidebarOpen(false)}
             />
 
-            <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h2 className="text-xl font-semibold text-slate-800">Bem-vindo</h2>
-                    <p className="mt-2 text-slate-600">
-                        Clique no botão de infos no canto direito do header para abrir a sidebar com
-                        as informações da Gloria.
-                    </p>
-                </div>
+            <main>
+                <HeroSection />
+                <DescriptionSection />
+                <PlantsSection />
+                <FishSection />
+                <SubstratesSection />
+                <DecorationsSection />
+                <ReferencesSection />
             </main>
 
             <Footer />
