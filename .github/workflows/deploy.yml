@@ -13,10 +13,10 @@ jobs:
       - name: Checkout repositório
         uses: actions/checkout@v3
 
-      - name: Instalar Node.js
+      - name: Setup Node.js (latest LTS)
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 'lts/*'
 
       - name: Instalar dependências
         run: npm install
@@ -29,10 +29,22 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Pega apenas o conteúdo da dist
+          # Verifica se a branch deploy existe localmente
+          if git show-ref --verify --quiet refs/heads/deploy; then
+            git branch -D deploy
+          fi
+
+          # Cria branch deploy com apenas a pasta dist
           git checkout --orphan deploy
+          
+          # Remove todos os arquivos atuais do índice
+          git rm -rf --cached . 2>/dev/null || true
+          
+          # Adiciona apenas o conteúdo da pasta dist
           git --work-tree=dist add --all
-          git --work-tree=dist commit -m "Deploy automático"
+          
+          # Cria commit se houver alterações
+          git --work-tree=dist commit -m "Deploy automático - $(date '+%Y-%m-%d %H:%M:%S')" || echo "Nenhuma alteração para commit"
 
           # Força push para branch deploy
           git push origin HEAD:deploy --force
