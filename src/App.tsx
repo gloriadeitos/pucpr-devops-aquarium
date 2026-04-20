@@ -7,12 +7,14 @@ import {
 } from 'react-router-dom';
 
 import Home from './pages/Home'
+import Pagina from './pages/Pagina.tsx'
 
 function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router basename="/react-example">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/aa" element={<Pagina />} />
       </Routes>
     </Router>
   )
