@@ -1,16 +1,16 @@
-FROM node:18-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Copiar arquivos de dependências
-COPY package*.json ./
-COPY tailwind.config.js ./
+ARG VITE_BASE=/
+ENV VITE_BASE=${VITE_BASE}
 
-# Instalar dependências
+COPY package*.json ./
 RUN npm install
 
-# Copiar o resto do código
 COPY . .
+RUN npm run build
 
-# Comando para build do Tailwind
-CMD ["npm", "run", "build"]
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html

@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/pucpr-devops-aquarium/',
+  base: process.env.VITE_BASE ?? '/pucpr-devops-aquarium/',
   plugins: [
     react(),
     tailwindcss(),
