@@ -1,0 +1,23 @@
+services:
+  tailwind:
+    build: .
+    container_name: tailwind-app
+    volumes:
+      - ./src:/app/src
+      - ./dist:/app/dist
+      - ./index.html:/app/index.html
+      - ./tailwind.config.js:/app/tailwind.config.js
+    command: npm run watch
+    stdin_open: true
+    tty: true
+
+  nginx:
+    image: nginx:alpine
+    container_name: tailwind-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html
+      - ./index.html:/usr/share/nginx/html/index.html
+    depends_on:
+      - tailwindversion: '3.8'
