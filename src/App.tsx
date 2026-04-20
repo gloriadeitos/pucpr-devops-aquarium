@@ -11,7 +11,7 @@ import Pagina from './pages/Pagina.tsx'
 
 function App() {
   return (
-    <Router basename="/react-example">
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/aa" element={<Pagina />} />
