@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+#### Trabalho Acadêmico - Abril 2026
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# pucpr-devops-aquarium
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="https://github.com/gloriadeitos/gloriadeitos/blob/main/img/pucpr.png" alt="pucpr" height="100">
+  <img src="./src/assets/hero.png" alt="aquarium" height="100">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Disciplina:** DevOps  
+**Curso:** Analise e Desenvolvimento de Sistemas  
+**Instituicao:** Pontificia Universidade Catolica do Parana (PUCPR) - Brasil
 
-## React Compiler
+## Sobre o Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Este repositorio apresenta um projeto web tematico sobre aquarismo, desenvolvido com foco em boas praticas de organizacao de codigo, componentizacao em React e publicacao em ambiente web.
 
-## Expanding the ESLint configuration
+A aplicacao foi estruturada em secoes de conteudo para orientar iniciantes e entusiastas sobre montagem e cuidados com aquarios, incluindo:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- introducao ao tema
+- plantas aquaticas
+- peixes
+- substratos
+- decoracoes
+- referencias
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Objetivo do Trabalho
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- aplicar conceitos de desenvolvimento frontend moderno
+- estruturar uma aplicacao React com TypeScript
+- organizar o projeto para publicacao em GitHub Pages
+- exercitar padroes de navegacao e layout responsivo
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tecnologias Utilizadas
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router DOM
+- ESLint
+- Docker e Docker Compose (ambiente de apoio)
+
+## Estrutura do Projeto
+
+```text
+.
+|-- docker-compose.yml
+|-- dockerfile
+|-- eslint.config.js
+|-- index.html
+|-- package.json
+|-- README.md
+|-- tsconfig.app.json
+|-- tsconfig.json
+|-- tsconfig.node.json
+|-- vite.config.ts
+|-- public/
+|   |-- favicon.svg
+|   `-- icons.svg
+`-- src/
+    |-- App.css
+    |-- App.tsx
+    |-- index.css
+    |-- main.tsx
+    |-- assets/
+    |-- components/
+    |   |-- Footer.tsx
+    |   |-- Header.tsx
+    |   |-- Sidebar.tsx
+    |   `-- sections/
+    |       |-- HeroSection.tsx
+    |       |-- DescriptionSection.tsx
+    |       |-- PlantsSection.tsx
+    |       |-- FishSection.tsx
+    |       |-- SubstratesSection.tsx
+    |       |-- DecorationsSection.tsx
+    |       `-- ReferencesSection.tsx
+    `-- pages/
+        |-- Home.tsx
+        `-- Pagina.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Como Executar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pre-requisitos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20+ (recomendado)
+- npm
+
+### Execucao local
+
+1. Clone o repositorio:
+
+   ```bash
+   git clone https://github.com/seu-usuario/pucpr-devops-aquarium.git
+   cd pucpr-devops-aquarium
+   ```
+
+2. Instale as dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Inicie o ambiente de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Acesse no navegador:
+
+   ```
+   http://localhost:5173/pucpr-devops-aquarium/
+   ```
+
+### Build de producao
+
+```bash
+npm run build
 ```
+
+### Preview local da build
+
+```bash
+npm run preview
+```
+
+## Roteamento e Publicacao
+
+O projeto utiliza `basename` no React Router e `base` no Vite para funcionar corretamente quando publicado em subpasta (exemplo: GitHub Pages).
+
+## Resultados de Aprendizagem
+
+- consolidacao de conceitos de SPA com React
+- uso de componentes reutilizaveis
+- aplicacao de estilizacao utilitaria com Tailwind CSS
+- organizacao de projeto para deploy web
+
+---
+
+<p align="center">
+  Projeto desenvolvido para fins academicos na PUCPR
+</p>
