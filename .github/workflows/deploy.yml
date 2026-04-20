@@ -1,4 +1,4 @@
-name: Deploy React to deploy branch
+name: Deploy to deploy branch
 
 on:
   push:
@@ -6,45 +6,24 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js (latest LTS)
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Build do projeto
-        run: npm run build
-
-      - name: Deploy para branch deploy
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Verifica se a branch deploy existe localmente
-          if git show-ref --verify --quiet refs/heads/deploy; then
-            git branch -D deploy
-          fi
-
-          # Cria branch deploy com apenas a pasta dist
-          git checkout --orphan deploy
-          
-          # Remove todos os arquivos atuais do índice
-          git rm -rf --cached . 2>/dev/null || true
-          
-          # Adiciona apenas o conteúdo da pasta dist
-          git --work-tree=dist add --all
-          
-          # Cria commit se houver alterações
-          git --work-tree=dist commit -m "Deploy automático - $(date '+%Y-%m-%d %H:%M:%S')" || echo "Nenhuma alteração para commit"
-
-          # Força push para branch deploy
-          git push origin HEAD:deploy --force
+          node-version: 20
+      
+      - run: npm install
+      - run: npm run build
+      
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: deploy
+          force_orphan: true
