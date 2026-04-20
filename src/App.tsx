@@ -10,11 +10,11 @@ import Home from './pages/Home'
 
 function App() {
   return (
-    <Router basename="/react-example">
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-    </ Router>
+    </Router>
   )
 }
 
