@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root {
+	--header-offset: 7.75rem;
+}
+
+@media (min-width: 640px) {
+	:root {
+		--header-offset: 9rem;
+	}
+}
+
+html {
+	scroll-behavior: smooth;
+}
